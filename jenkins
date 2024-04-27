@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     // cleaning the script
-                    sh 'mvn clean package'
+                    sh 'mav clean package'
                 }
             }
         }
@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // Using JUnit and Mockito for unit tests, and integration tests can be performed with TestNG
-                    sh 'mvn test'
+                    sh 'mav test'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     // SonarQube can be used for static code analysis
-                    sh 'mvn sonar:sonar'
+                    sh 'mav sonar:sonar'
                 }
             }
         }
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     // Using OWASP Dependency Check for security vulnerability scanning
-                    sh 'mvn dependency-check:check'
+                    sh 'mav dependency-check:check'
                 }
             }
         }
