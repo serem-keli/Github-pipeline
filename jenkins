@@ -1,19 +1,69 @@
 pipeline {
     agent any
-    
     stages {
         stage('Build') {
             steps {
-                echo "Building ...."
-            }
-            post{
-                success{
-                    mail to: "seremvincent214@gmail.com",
-                    subject: "Building status email",
-                    body: "Build was successful"
+                script {
+                    // Maven is used as the build tool
+                    sh 'mvn clean install'
                 }
             }
         }
-        
+        stage('Unit and Integration Tests') {
+            steps {
+                script {
+                    // Using JUnit and Mockito for unit tests, and integration tests can be performed with TestNG
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage('Code Analysis') {
+            steps {
+                script {
+                    // SonarQube can be used for static code analysis
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                script {
+                    // Using OWASP Dependency Check for security vulnerability scanning
+                    sh 'mvn dependency-check:check'
+                }
+            }
+        }
+        stage('Deploy to Staging') {
+            steps {
+                script {
+                    // Deployment scripts using AWS CLI or SDK
+                    sh 'aws s3 cp target/myapp.jar s3://my-staging-deploy-bucket/'
+                }
+            }
+        }
+        stage('Integration Tests on Staging') {
+            steps {
+                script {
+                    // Using Selenium or similar tools for integration tests on staging
+                    sh 'run-integration-tests.sh'
+                }
+            }
+        }
+        stage('Deploy to Production') {
+            steps {
+                script {
+                    // Deployment scripts using AWS CLI or SDK
+                    sh 'aws s3 cp target/myapp.jar s3://my-production-deploy-bucket/'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            // Sending emails after tests and security scan stages
+            mail to: 'seremvincent214@gmail.com',
+                 subject: "Stage Completed: ${currentBuild.fullDisplayName}",
+                 body: "The stage has completed with status: ${currentBuild.currentResult}"
+        }
     }
 }
