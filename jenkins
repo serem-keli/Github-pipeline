@@ -4,8 +4,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Maven is used as the build tool
-                    sh 'mvn clean install'
+                    // cleaning the script
+                    sh 'mvn clean package'
                 }
             }
         }
