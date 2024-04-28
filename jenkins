@@ -1,14 +1,15 @@
 pipeline {
     agent any
+    tools {
+        maven 'Mav 3.8.1' // Use the name you configured in the global tool configuration
+    }
     stages {
         stage('Build') {
             steps {
-                script {
-                    // cleaning the script
-                    sh 'mav clean package'
-                }
+                sh 'mav clean install'
             }
         }
+    }
         stage('Unit and Integration Tests') {
             steps {
                 script {
