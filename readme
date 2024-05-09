@@ -1,0 +1,15 @@
+
+ First, ensure you have Jenkins installed and running on your server or local machine.
+
+ In Jenkins, create a new job by selecting "New Item", then choose "Pipeline", and give it a name.
+
+ In the job configuration, under the "Pipeline" section, choose "Pipeline script from SCM". Set the SCM to "Git" and enter the URL of your GitHub repository.
+
+ Provide credentials for Jenkins to access the GitHub repository if it’s private. You can add credentials by using the "Add" button next to the "Credentials" option.
+
+ Specify the branch where your Jenkinsfile is located and the path to the Jenkinsfile within the repository if it’s not in the root directory.
+
+Save your pipeline configuration. Then, build the pipeline by clicking "Build Now".
+
+ View the build output and progress directly in the "Console Output" for the job in Jenkins.
+
