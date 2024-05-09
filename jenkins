@@ -4,75 +4,75 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                echo "Building...."   
+                echo "Building in progress "   
             }
             post {
                 success {
                     mail to: "seremvincent214@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build was successful"
+                    subject: "Build Status",
+                    body: "Build stage completed successfully"
                 }
             }
         }
          stage("Test") {
             steps {
-                echo "Testing...."
+                echo "Testing in progress"
             }
             post {
                 success {
                     mail to: "seremvincent214@gmail.com",
-                    subject: "Test Status Email",
-                    body: "Tests were successful"
+                    subject: "Test Status",
+                    body: "Tests completed successfully"
                 }
             }
         }
          stage("Check code quality") {
             steps {
-                echo "checking...."
+                echo "checking in progress"
     
             }
             post {
                 success {
                     mail to: "seremvincent214@gmail.com",
-                    subject: "check Status Email",
-                    body: "check were successful"
+                    subject: "check Status",
+                    body: "check completed successfully"
                 }
             }
         }
         stage("Deploy") {
             steps {
-                echo "Deploying...."
+                echo "Deploying in progress"
             }
             post {
                 success {
                     mail to: "seremvincent214@gmail.com",
-                    subject: "Deployment Status Email",
-                    body: "Deployment was successful"
+                    subject: "Deployment Status",
+                    body: "Deployment completed successfully"
                 }
             }
         }
          stage("Approval") {
             steps {
-                echo "approving...."
+                echo "approving in progress"
             }
             post {
                 success {
                     mail to: "seremvincent214@gmail.com",
-                    subject: "approval Status Email",
-                    body: "approving was successful"
+                    subject: "approval Status",
+                    body: "approving completed successfully"
                 }
             }
         }
          stage("deploy for production") {
             steps {
-                echo "deploying...."
+                echo "deploying in progress"
 
             }
             post {
                 success {
                     mail to: "seremvincent214@gmail.com",
-                    subject: "deployment Status Email",
-                    body: "deployed for production was successful"
+                    subject: "deployment Status",
+                    body: "deployed for production completed successfully"
                 }
             }
         }
