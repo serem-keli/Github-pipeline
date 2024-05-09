@@ -1,70 +1,80 @@
 pipeline {
     agent any
-    tools {
-        maven 'Mav 3.8.1' // Use the name you configured in the global tool configuration
-    }
+
     stages {
-        stage('Build') {
+        stage("Build") {
             steps {
-                sh 'mav clean install'
+                echo "Building...."   
             }
-        }
-    }
-        stage('Unit and Integration Tests') {
-            steps {
-                script {
-                    // Using JUnit and Mockito for unit tests, and integration tests can be performed with TestNG
-                    sh 'mav test'
+            post {
+                success {
+                    mail to: "seremvincent214@gmail.com",
+                    subject: "Build Status Email",
+                    body: "Build was successful"
                 }
             }
         }
-        stage('Code Analysis') {
+         stage("Test") {
             steps {
-                script {
-                    // SonarQube can be used for static code analysis
-                    sh 'mav sonar:sonar'
+                echo "Testing...."
+            }
+            post {
+                success {
+                    mail to: "seremvincent214@gmail.com",
+                    subject: "Test Status Email",
+                    body: "Tests were successful"
                 }
             }
         }
-        stage('Security Scan') {
+         stage("Check code quality") {
             steps {
-                script {
-                    // Using OWASP Dependency Check for security vulnerability scanning
-                    sh 'mav dependency-check:check'
+                echo "checking...."
+    
+            }
+            post {
+                success {
+                    mail to: "seremvincent214@gmail.com",
+                    subject: "check Status Email",
+                    body: "check were successful"
                 }
             }
         }
-        stage('Deploy to Staging') {
+        stage("Deploy") {
             steps {
-                script {
-                    // Deployment scripts using AWS CLI or SDK
-                    sh 'aws s3 cp target/myapp.jar s3://my-staging-deploy-bucket/'
+                echo "Deploying...."
+            }
+            post {
+                success {
+                    mail to: "seremvincent214@gmail.com",
+                    subject: "Deployment Status Email",
+                    body: "Deployment was successful"
                 }
             }
         }
-        stage('Integration Tests on Staging') {
+         stage("Approval") {
             steps {
-                script {
-                    // Using Selenium or similar tools for integration tests on staging
-                    sh 'run-integration-tests.sh'
+                echo "approving...."
+            }
+            post {
+                success {
+                    mail to: "seremvincent214@gmail.com",
+                    subject: "approval Status Email",
+                    body: "approving was successful"
                 }
             }
         }
-        stage('Deploy to Production') {
+         stage("deploy for production") {
             steps {
-                script {
-                    // Deployment scripts using AWS CLI or SDK
-                    sh 'aws s3 cp target/myapp.jar s3://my-production-deploy-bucket/'
+                echo "deploying...."
+
+            }
+            post {
+                success {
+                    mail to: "seremvincent214@gmail.com",
+                    subject: "deployment Status Email",
+                    body: "deployed for production was successful"
                 }
             }
-        }
-    }
-    post {
-        always {
-            // Sending emails after tests and security scan stages
-            mail to: 'seremvincent214@gmail.com',
-                 subject: "Stage Completed: ${currentBuild.fullDisplayName}",
-                 body: "The stage has completed with status: ${currentBuild.currentResult}"
         }
     }
 }
